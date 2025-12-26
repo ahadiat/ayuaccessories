@@ -424,21 +424,42 @@ nav {
             <h2>Hubungi Kami</h2>
             <p style="margin-bottom: 25px; font-size: 0.9rem;">Ada soalan? Kami sedia membantu anda! ✨</p>
             
-            <form onsubmit="sendContactMessage(event)">
+            <form onsubmit="hantarPertanyaan(event)">
                 <div class="form-group">
                     <label for="name">Nama Anda:</label>
-                    <input type="text" id="name" placeholder="Masukkan nama penuh" required>
+                    <input type="text" id="contact-name" placeholder="Masukkan nama penuh" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="message">Mesej / Soalan:</label>
-                    <textarea id="message" rows="4" placeholder="Tulis mesej anda di sini..." required></textarea>
+                    <textarea id="contact-message" rows="4" placeholder="Tulis mesej anda di sini..." required></textarea>
                 </div>
                 
                 <button type="submit" class="btn-send">Kirim Mesej via WhatsApp 💌</button>
             </form>
         </div>
     </section>
+
+      <script>
+        function hantarPertanyaan() {
+            const nama = document.getElementById('contact-name').value;
+            const mesej = document.getElementById('contact-message').value;
+            const noWA = "60178477112";
+
+            if (!nama || !mesej) {
+                alert("Sila isi Nama dan Mesej anda!");
+                return;
+            }
+
+            const teksWA = `*PERTANYAAN PELANGGAN*%0A` +
+                           `--------------------%0A` +
+                           `*Nama:* ${nama}%0A` +
+                           `*Mesej:* ${mesej}%0A` +
+                           `--------------------`;
+
+            window.open(`https://wa.me/${noWA}?text=${teksWA}`, '_blank');
+        }
+    </script>
 
     <div id="cart-container" class="minimized">
         <div class="cart-header" onclick="toggleCart()">
