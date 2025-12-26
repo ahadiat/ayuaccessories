@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayu Accessories | Girlish Phone Accessories</title>
+    <link rel="icon" type="image/png" href="https://pbs.twimg.com/media/G9D__8GbwAAB5vb?format=png&name=small">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --soft-pink: #ffe4e1;
+            --deep-pink: #ffb6c1;
+            --accent-pink: #ff85a2;
+            --text-color: #5d4e4e;
+            --danger: #ff4d4d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0; padding: 0;
+            background-color: #fffafb;
+            color: var(--text-color);
+        }
+
+        /* Navbar */
+        nav {
+            background: #fff; padding: 10px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo img { width: 50px; height: 50px;  }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255,228,225,0.8), rgba(255,228,225,0.8)), url('https://pbs.twimg.com/media/G9D_wgGa0AArTGG?format=jpg&name=900x900');
+            background-size: cover; background-position: center;
+            height: 30vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .hero h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #d63384; margin: 0; }
+
+        /* Product Grid */
+        .container { width: 90%; margin: 40px auto; padding-bottom: 100px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; padding-bottom: 20px; border: 1px solid var(--soft-pink); }
+        .product-card img { width: 100%; height: 280px; object-fit: cover; }
+        .price { color: var(--accent-pink); font-weight: bold; font-size: 1.2rem; display: block; margin: 10px 0; }
+
+        .btn-add {
+            background: var(--accent-pink); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.3s;
+        }
+        .btn-add:hover { background: #d63384; }
+
+        /* --- Floating Cart System --- */
+        #cart-container {
+            position: fixed; bottom: 20px; right: 20px;
+            width: 340px; background: white;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 2000; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--soft-pink);
+        }
+
+        #cart-container.minimized {
+            width: 65px; height: 65px; border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .cart-header {
+            background: var(--accent-pink); color: white;
+            padding: 15px; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-content { padding: 15px; max-height: 300px; overflow-y: auto; }
+        .minimized .cart-content, .minimized .cart-footer { display: none; }
+        .minimized .cart-header h3 { display: none; }
+        .minimized .cart-header { height: 100%; justify-content: center; padding: 0; border-radius: 50%; }
+
+      /* ================= NAVBAR BASE ================= */
+nav {
+  background: #fff;
+  padding: 10px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 3000;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-area img {
+  height: 55px;
+  border-radius: 50%;
+}
+
+.brand-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: var(--accent-pink);
+}
+
+/* Desktop nav */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item > a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 10px 0;
+  display: block;
+  transition: 0.3s;
+}
+
+.nav-item:hover > a {
+  color: var(--accent-pink);
+}
+
+/* Dropdown desktop */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 180px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  padding: 10px 0;
+  display: none;
+}
+
+.nav-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown a {
+  padding: 10px 20px;
+  display: block;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  background: var(--soft-pink);
+  color: var(--accent-pink);
+}
+
+/* Hamburger */
+.menu-toggle {
+  display: none;
+  font-size: 1.9rem;
+  cursor: pointer;
+  color: var(--accent-pink);
+}
+
+/* ================================================= */
+/* ================= MOBILE MODE =================== */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    background: white;
+    flex-direction: column;
+    padding: 25px 20px;
+    gap: 10px;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 5000;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+  }
+
+  /* Close button row */
+  .menu-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .close-menu {
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--accent-pink);
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-item > a {
+    font-size: 1.2rem;
+    padding: 14px 5px;
+  }
+
+  /* Mobile dropdown */
+  .dropdown {
+    position: static;
+    display: none;
+    box-shadow: none;
+    padding-left: 15px;
+  }
+
+  .nav-item.open .dropdown {
+    display: block;
+  }
+}
+
+
+        
+        /* --- Hubungi Kami Section --- */
+        .contact-section {
+            background-color: #fdf0f0;
+            padding: 60px 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
+        }
+
+        .contact-container h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent-pink);
+            font-size: 2.5rem;
+            margin-top: 0;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--soft-pink);
+            border-radius: 15px;
+            font-family: inherit;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-pink);
+            background-color: #fffafb;
+        }
+
+        .btn-send {
+            background: var(--accent-pink);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .btn-send:hover {
+            background: #d63384;
+            transform: scale(1.02);
+        }
+        
+        /* Cart Item Design */
+        .cart-item { 
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.85rem; margin-bottom: 12px; 
+            padding-bottom: 8px; border-bottom: 1px solid #fdf0f0; 
+        }
+        
+        .btn-remove {
+            background: none; border: none; color: var(--danger);
+            cursor: pointer; font-weight: bold; font-size: 1.1rem;
+            padding: 0 5px; margin-left: 10px;
+        }
+
+        .cart-footer { padding: 15px; border-top: 1px solid #eee; background: #fffafb; }
+        .total-price { font-weight: bold; font-size: 1.2rem; text-align: right; color: #d63384; margin-bottom: 12px; }
+        
+        .social-links {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-links a {
+  color: var(--accent-pink);
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+        .whatsapp-btn {
+            background: #25d366; color: white; border: none; padding: 12px;
+            border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px; background: white; border-top: 1px solid var(--soft-pink); }
+        .footer-logo { width: 110px; margin-bottom: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <img src="https://pbs.twimg.com/media/G9D__8GbwAAB5vb?format=png&name=small" alt="Ayu Logo">
+            <span class="brand-name">Ayu Accessories</span>
+        </div>
+        <ul class="nav-links">
+            <div class="menu-header">
+                <span class="close-menu" id="closeMenu">&times;</span>
+              </div>
+            
+            <li class="nav-item"><a href="#">Home</a></li>
+            <li class="nav-item">
+                <a href="#products">Shop Items ▾</a>
+                <div class="dropdown">
+                    <a href="#products">Phone Lanyards</a>
+                    <a href="#products" >Aesthetic Casings</a>
+                    <a href="#">Best Sellers</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Social Media ▾</a>
+                <div class="dropdown">
+                    <a href="https://www.tiktok.com/@ayuaccessories1?_r=1&_t=ZS-92X4WdFZRmE">TikTok</a>
+                    <a href="https://www.instagram.com/ayuanggraini.p_?igsh=MXJwcDlibmJldTNxaQ==">Instagram</a>
+                    <a href="https://www.facebook.com/profile.php?id=61583852440425">Facebook</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            ☰
+          </div>
+    </nav>
+    
+      
+
+    <header class="hero">
+        <h1>Ayu Accessories</h1>
+        <p>Sentuhan Lembut untuk Telefon Kesayangan Anda 🌸</p>
+    </header>
+
+    <section class="container" id="products">
+        <h2 style="text-align: center; font-family: 'Dancing Script'; font-size: 2.8rem; color: var(--accent-pink);">Koleksi Terbaru</h2>
+        
+        <div class="product-grid" >
+            <div class="product-card">
+                <img src="https://pbs.twimg.com/media/G9D_-52b0AA7x7x?format=jpg&name=900x900" alt="Lanyard Pink">
+                <h3>Floral Pink Phone Lanyard</h3>
+                <span class="price">RM 15.00</span>
+                <button class="btn-add" onclick="addToCart('Floral Pink Lanyard', 15)">+ Tambah ke Bakul</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://pbs.twimg.com/media/G9D_wgGa0AArTGG?format=jpg&name=900x900" alt="Butterfly Casing">
+                <h3>Butterfly Bloom Casing</h3>
+                <span class="price">RM 29.00</span>
+                <button class="btn-add" onclick="addToCart('Butterfly Bloom Casing', 29)">+ Tambah ke Bakul</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2>Hubungi Kami</h2>
+            <p style="margin-bottom: 25px; font-size: 0.9rem;">Ada soalan? Kami sedia membantu anda! ✨</p>
+            
+            <form onsubmit="sendContactMessage(event)">
+                <div class="form-group">
+                    <label for="name">Nama Anda:</label>
+                    <input type="text" id="name" placeholder="Masukkan nama penuh" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mesej / Soalan:</label>
+                    <textarea id="message" rows="4" placeholder="Tulis mesej anda di sini..." required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-send">Kirim Mesej via WhatsApp 💌</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="cart-container" class="minimized">
+        <div class="cart-header" onclick="toggleCart()">
+            <span id="cart-icon">🛒</span>
+            <h3 style="margin: 0; font-size: 1rem;">Bakul Saya (<span id="cart-count">0</span>)</h3>
+            <span id="toggle-arrow">▲</span>
+        </div>
+        
+        <div class="cart-content" id="cart-items">
+            <p style="text-align: center; color: #999; font-size: 0.9rem;">Bakul anda masih kosong 🌸</p>
+        </div>
+
+        <div class="cart-footer">
+            <div class="total-price" id="total-price">Jumlah: RM 0.00</div>
+            <button class="whatsapp-btn" onclick="sendToWhatsApp()">
+                Hantar Pesanan (WhatsApp)
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <img src="https://pbs.twimg.com/media/G9EHWTMagAADOWK?format=png&name=small" alt="Footer Logo" class="footer-logo">
+        <div style="margin: 15px 0;" class="social-links ">
+        
+                <a href="https://www.facebook.com/profile.php?id=61583852440425">
+<i class="fa-brands fa-facebook"></i>
+</a>
+
+<a href="https://www.instagram.com/ayuanggraini.p_?igsh=MXJwcDlibmJldTNxaQ==">
+<i class="fa-brands fa-instagram"></i>
+</a>
+
+<a href="https://www.tiktok.com/@ayuaccessories1?_r=1&_t=ZS-92X4WdFZRmE">
+<i class="fa-brands fa-tiktok"></i>
+</a>
+
+         
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2024 Ayu Accessories. Cantik & Estetik.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function toggleCart() {
+            const cartContainer = document.getElementById('cart-container');
+            const arrow = document.getElementById('toggle-arrow');
+            
+            cartContainer.classList.toggle('minimized');
+            arrow.innerText = cartContainer.classList.contains('minimized') ? "▲" : "▼";
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            calculateTotal();
+            
+            // Auto open cart
+            document.getElementById('cart-container').classList.remove('minimized');
+            document.getElementById('toggle-arrow').innerText = "▼";
+            
+            updateUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            calculateTotal();
+            updateUI();
+        }
+
+        function calculateTotal() {
+            total = cart.reduce((sum, item) => sum + item.price, 0);
+        }
+
+        function updateUI() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const totalPrice = document.getElementById('total-price');
+            
+            cartCount.innerText = cart.length;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #999; font-size: 0.9rem;">Bakul anda masih kosong 🌸</p>';
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div style="flex:1;">
+                            <strong>${item.name}</strong><br>
+                            <span style="color: var(--accent-pink)">RM ${item.price.toFixed(2)}</span>
+                        </div>
+                        <button class="btn-remove" onclick="removeFromCart(${index})" title="Batal produk">✕</button>
+                    </div>
+                `).join('');
+            }
+            totalPrice.innerText = `Jumlah: RM ${total.toFixed(2)}`;
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Sila tambah produk ke dalam bakul terlebih dahulu!");
+                return;
+            }
+
+            let phoneNumber = "60178477112"; // TUKAR KEPADA NOMBOR ANDA (MULA DENGAN 60)
+            let message = "*PESANAN BARU - AYU ACCESSORIES*%0A";
+            message += "-----------------------------------%0A";
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} (RM${item.price.toFixed(2)})%0A`;
+            });
+
+            message += "-----------------------------------%0A";
+            message += `*JUMLAH BESAR: RM ${total.toFixed(2)}*%0A%0A`;
+            message += "Adakah item ini masih ada stok? Saya berminat untuk beli! ✨";
+            
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+    </script>
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const closeMenu = document.getElementById("closeMenu");
+    const navLinks = document.querySelector(".nav-links");
+  
+    // Open menu
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.add("active");
+    });
+  
+    // Close menu
+    closeMenu.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
+  
+    // 1. Kawalan klik pada pautan utama (Parent)
+document.querySelectorAll(".nav-item > a").forEach(link => {
+    link.addEventListener("click", function (e) {
+        const parent = this.parentElement;
+        const dropdown = parent.querySelector(".dropdown");
+
+        // Jika mode mobile DAN ada dropdown
+        if (window.innerWidth <= 768 && dropdown) {
+            e.preventDefault();
+            // Tutup dropdown lain yang mungkin tengah terbuka (optional)
+            document.querySelectorAll(".nav-item").forEach(item => {
+                if(item !== parent) item.classList.remove("open");
+            });
+            parent.classList.toggle("open");
+        } else {
+            // Jika pautan biasa (macam Home/Contact), tutup menu terus
+            navLinks.classList.remove("active");
+        }
+    });
+});
+
+// 2. ✅ FIX: Kawalan klik pada item di DALAM dropdown
+document.querySelectorAll(".dropdown a").forEach(subLink => {
+    subLink.addEventListener("click", function () {
+        // Tutup menu utama (nav-links)
+        navLinks.classList.remove("active");
+        
+        // Reset semula dropdown supaya tertutup untuk penggunaan seterusnya
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.classList.remove("open");
+        });
+    });
+});
+
+   
+
+  </script>
+  
+    
+  
+      
+</body>
+</html>
