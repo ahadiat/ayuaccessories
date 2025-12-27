@@ -355,9 +355,47 @@ nav {
         .footer-logo { width: 110px; margin-bottom: 15px; }
 
 
-        .gallery-section {
+     .gallery-section {
     padding: 60px 0;
     background-color: #fff;
+}
+
+.gallery-container {
+    max-width: 1200px; /* Hadkan lebar maksimum supaya tak terlalu kangkang di desktop */
+    margin: 0 auto;    /* Ini akan menengahkan seluruh kontena */
+    padding: 0 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    /* Menetapkan grid supaya sentiasa di tengah */
+    justify-content: center; 
+    /* Desktop: Automatik susun ikut lebar kontena */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    grid-gap: 20px;
+    margin: 0 auto;
+}
+
+/* Memastikan item dalam grid mempunyai saiz yang konsisten */
+.gallery-item {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 300px; /* Tinggikan sikit untuk desktop */
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 lajur untuk mobile */
+        grid-gap: 10px;
+    }
+    .gallery-item {
+        height: 200px; /* Rendahkan sikit untuk skrin kecil */
+    }
 }
 
 .gallery-title {
@@ -368,21 +406,7 @@ nav {
     margin-bottom: 10px;
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 15px;
-    padding: 10px;
-}
 
-.gallery-item {
-    position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-    height: 250px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
 
 .gallery-item img {
     width: 100%;
